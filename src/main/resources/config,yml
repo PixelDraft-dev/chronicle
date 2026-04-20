@@ -1,0 +1,71 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+#   Chronicle v2.0 — Configuration
+#   Paper 1.21.11  |  ProtocolLib 5.x  |  MariaDB / MariaDB4j
+# ═══════════════════════════════════════════════════════════════════════════════
+
+# ── Buffer ───────────────────────────────────────────────────────────────────
+buffer:
+  # How many ticks of action data to retain per player (200 = 10s, 300 = 15s)
+  max-ticks: 300
+  # Bukkit event capture rate (1 = every tick = 20 captures/s)
+  capture-rate-ticks: 1
+  # Seconds of player inactivity before buffer is silently pruned from memory
+  idle-prune-seconds: 120
+
+# ── Database ─────────────────────────────────────────────────────────────────
+database:
+  mode: SELF_HOSTED   # SELF_HOSTED | EXTERNAL
+
+  # ── Self-hosted settings (only used when mode: SELF_HOSTED) ───────────
+  self-hosted:
+    # Port the embedded MariaDB will listen on.
+    # This is what you point phpMyAdmin at: host=127.0.0.1, port=13306
+    port: 13306
+    # Where Chronicle stores the embedded DB data files on disk.
+    # Relative paths resolve from your server's root directory.
+    data-dir: "plugins/Chronicle/db-data"
+    # Database name Chronicle will create inside the embedded server.
+    database-name: "chronicle"
+    # Root credentials for the embedded MariaDB instance.
+    root-password: "chronicle_root_secret"
+    # Application user Chronicle creates automatically on first start.
+    username: "chronicle_user"
+    password: "chronicle_pass"
+
+  # ── External settings (only used when mode: EXTERNAL) ─────────────────
+  external:
+    host: "your.mysql.host"
+    port: 3306
+    database-name: "chronicle"
+    username: "chronicle_user"
+    password: "your_password_here"
+    use-ssl: false
+    verify-certificate: false
+
+  # ── Pool settings (apply to both modes) ───────────────────────────────
+  pool-size: 10
+  max-lifetime: 1800000
+
+# ── Replay ───────────────────────────────────────────────────────────────────
+replay:
+  ghost-prefix: "&8[&6GHOST&8] "
+  auto-exit-seconds: 300
+  default-speed: 1.0
+  scene-radius: 7
+
+# ── Snapshot ─────────────────────────────────────────────────────────────────
+snapshot:
+  directory: "snapshots"
+  compression: "ZSTD"
+  max-snapshots: 10
+
+# ── Messages ─────────────────────────────────────────────────────────────────
+messages:
+  prefix: "&8[&6Chronicle&8] "
+  report-filed: "&aReport filed! ID: &e#{id}&a. Staff have been notified."
+  report-notify: "&c{reporter} &7reported &c{accused}&7. Use &e/ch play {id} &7to review."
+  buffer-flushed: "&7Action buffer flushed (&e{ticks} &7ticks captured)."
+  replay-start: "&aStarting replay for report &e#{id}&a at speed &e{speed}x&a."
+  replay-end: "&7Replay ended. Use &e/ch restore-view &7to exit ghost reality."
+  capture-start: "&eInitiating global server snapshot..."
+  capture-done: "&aSnapshot &e#{id} &acomplete — &e{entities} &aentities + &e{blocks} &atile-entities archived."
