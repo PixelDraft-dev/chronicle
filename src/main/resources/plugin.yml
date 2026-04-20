@@ -1,0 +1,37 @@
+name: Chronicle
+version: '${project.version}'
+main: com.chronicle.ChroniclePlugin
+api-version: '1.21'
+description: "Temporal Oversight & Action-Capture Engine — targets Paper 1.21.11+"
+authors: Pixel Draft
+depend: [ProtocolLib]
+
+commands:
+  report:
+    description: "File a report against a player — flushes their action buffer immediately."
+    usage: "/report <player> [reason]"
+    permission: chronicle.report
+    permission-message: "&cYou do not have permission to use /report."
+
+  ch:
+    description: "Chronicle administrative control panel."
+    usage: "/ch <play|live|capture|inspect|restore-view> [args]"
+    permission: chronicle.admin
+    permission-message: "&cChronicle admin access required."
+
+permissions:
+  chronicle.report:
+    description: "Allows a player to file a report."
+    default: true
+
+  chronicle.admin:
+    description: "Full Chronicle administrative control."
+    default: op
+
+  chronicle.live:
+    description: "Allows streaming live player buffers."
+    default: op
+
+  chronicle.snapshot:
+    description: "Allows triggering global snapshots."
+    default: op
