@@ -1,4 +1,4 @@
-# chronicle
+# Chronicle
 Minecraft paper plugin.
 
 # What is Chronicle?
